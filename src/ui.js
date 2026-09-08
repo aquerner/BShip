@@ -328,6 +328,11 @@ function enemyTurn() {
 function endGame(playerWon) {
   state.phase = 'over';
   state.busy = true;
+  setStatus(
+    playerWon
+      ? 'Every enemy ship is sunk. You win.'
+      : 'Your last ship is sunk. The AI wins.',
+  );
   revealEnemyFleet();
   renderBoards();
   dom.overlayTitle.textContent = playerWon ? 'Victory' : 'Defeat';
