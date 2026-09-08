@@ -2,7 +2,7 @@
 
 A browser Battleship game against an AI opponent. Plain HTML, CSS and ES modules — no framework, no build step, no dependencies.
 
-**Play:** https://aquerner.github.io/BShip/
+**Play:** https://bship-rmngbgpl.devinapps.com/
 
 ## How to play
 
