@@ -1,0 +1,11 @@
+{
+  "name": "bship",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Battleship in the browser against a probability-density AI. No build step, no dependencies.",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/simulate.mjs 2000",
+    "serve": "python3 -m http.server 8000"
+  }
+}

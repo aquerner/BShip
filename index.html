@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Battleship — Play vs. AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Battleship</h1>
+      <p class="tagline">Human vs. machine. Ten by ten. Five ships each.</p>
+    </header>
+
+    <main>
+      <section id="setup-panel" class="panel">
+        <div class="panel-head">
+          <h2>1. Deploy your fleet</h2>
+          <p id="setup-hint" class="hint">
+            Click a cell to place your <strong id="next-ship-name">Carrier</strong>
+            (<span id="next-ship-size">5</span> cells,
+            <span id="orientation-label">horizontal</span>).
+          </p>
+        </div>
+
+        <div class="setup-body">
+          <div class="board-wrap">
+            <div id="setup-board" class="board" aria-label="Your fleet placement grid"></div>
+          </div>
+
+          <div class="setup-controls">
+            <ul id="fleet-list" class="fleet-list"></ul>
+            <label class="difficulty">
+              <span>Opponent</span>
+              <select id="difficulty"></select>
+            </label>
+            <p id="difficulty-blurb" class="hint small"></p>
+            <div class="button-row">
+              <button id="rotate-btn" type="button">Rotate (R)</button>
+              <button id="random-btn" type="button">Random fleet</button>
+              <button id="reset-btn" type="button">Clear</button>
+            </div>
+            <button id="start-btn" type="button" class="primary" disabled>Start battle</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="game-panel" class="panel hidden">
+        <div class="panel-head">
+          <h2>2. Fire at will</h2>
+          <p id="status" class="status" role="status" aria-live="polite">Your move — click the enemy waters.</p>
+        </div>
+
+        <div class="boards">
+          <div class="board-wrap">
+            <h3>Enemy waters</h3>
+            <div id="enemy-board" class="board enemy" aria-label="Enemy grid — click to fire"></div>
+            <ul id="enemy-fleet" class="fleet-status"></ul>
+          </div>
+
+          <div class="board-wrap">
+            <h3>Your fleet</h3>
+            <div id="player-board" class="board" aria-label="Your fleet grid"></div>
+            <ul id="player-fleet" class="fleet-status"></ul>
+          </div>
+        </div>
+
+        <div class="log-wrap">
+          <h3>Battle log</h3>
+          <ol id="log" class="log" aria-live="polite"></ol>
+        </div>
+
+        <button id="newgame-btn" type="button" class="primary">New game</button>
+      </section>
+    </main>
+
+    <div id="gameover" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
+      <div class="overlay-card">
+        <h2 id="gameover-title">Victory</h2>
+        <p id="gameover-text"></p>
+        <button id="overlay-btn" type="button" class="primary">Play again</button>
+      </div>
+    </div>
+
+    <footer>
+      <a href="https://github.com/aquerner/BShip">Source on GitHub</a>
+    </footer>
+
+    <script type="module" src="./src/ui.js"></script>
+  </body>
+</html>
