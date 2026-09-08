@@ -26,6 +26,8 @@ const state = {
   enemyBoard: createBoard(),
   difficulty: 'hard',
   busy: false,
+  hoverIndex: null,
+  aiTimer: null,
 };
 
 const dom = {
@@ -150,6 +152,7 @@ function renderSetup() {
 
 function previewPlacement(index) {
   if (state.phase !== 'setup') return;
+  state.hoverIndex = index;
   dom.setupBoard.querySelectorAll('.preview, .invalid').forEach((n) => {
     n.classList.remove('preview', 'invalid');
   });
@@ -188,6 +191,7 @@ function flash(node) {
 function resetFleet() {
   state.playerBoard = createBoard();
   state.placedIndex = 0;
+  state.hoverIndex = null;
   dom.setupHint.innerHTML =
     'Click a cell to place your <strong id="next-ship-name">Carrier</strong> ' +
     '(<span id="next-ship-size">5</span> cells, <span id="orientation-label">horizontal</span>).';
@@ -283,10 +287,13 @@ function playerFires(index) {
   state.phase = 'enemy';
   state.busy = true;
   renderBoards();
-  window.setTimeout(enemyTurn, 650);
+  state.aiTimer = window.setTimeout(enemyTurn, 650);
 }
 
 function enemyTurn() {
+  state.aiTimer = null;
+  // The player may have abandoned the game while the AI was "thinking".
+  if (state.phase !== 'enemy') return;
   const index = chooseShot(state.playerBoard, { difficulty: state.difficulty });
   if (index === -1) {
     state.phase = 'player';
@@ -340,7 +347,12 @@ function revealEnemyFleet() {
 }
 
 function newGame() {
+  if (state.aiTimer !== null) {
+    window.clearTimeout(state.aiTimer);
+    state.aiTimer = null;
+  }
   state.phase = 'setup';
+  dom.log.replaceChildren();
   state.orientation = 'horizontal';
   state.enemyBoard = createBoard();
   state.busy = false;
@@ -360,6 +372,7 @@ renderSetup();
 dom.rotateBtn.addEventListener('click', () => {
   state.orientation = state.orientation === 'horizontal' ? 'vertical' : 'horizontal';
   renderSetup();
+  if (state.hoverIndex !== null) previewPlacement(state.hoverIndex);
 });
 dom.randomBtn.addEventListener('click', () => {
   randomFleet(state.playerBoard);

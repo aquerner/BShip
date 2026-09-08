@@ -251,7 +251,8 @@ button {
   cursor: pointer;
 }
 
-button:hover:not(:disabled) {
+/* Grid cells are buttons too, but they carry their own state colours. */
+button:not(.cell):hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.16);
 }
 
