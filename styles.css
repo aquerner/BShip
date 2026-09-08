@@ -308,8 +308,9 @@ button.primary:disabled {
   color: #f0a17c;
 }
 
+/* Wins over the display rules of anything it is applied to (.panel, .overlay). */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .overlay {
